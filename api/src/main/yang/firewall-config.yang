@@ -1,0 +1,108 @@
+module firewall-config{
+
+namespace "urn:opendaylight:firewall";
+    prefix "firewall";
+    revision "2018-9-25" {
+        description "firewall service config ";
+    }
+
+  container stateful-firewall-config{
+  	leaf stateful-firewall-service-enabled{
+        type boolean;
+ 		default false;
+ 	}
+  
+ 	leaf tcp-flow-table-id{
+ 		type uint8;
+ 		default 0;
+ 	}
+ 	leaf tcp-flow-hard-timeout{
+ 		type uint16;
+ 		default 0;
+ 	}
+ 	leaf tcp-flow-idle-timeout{
+ 		type uint16;
+ 		default 0;
+ 	}
+ 	leaf tcp-flow-priority{
+ 		type uint16;
+ 		default 500;
+ 	}
+  }
+  
+  container stateless-firewall-config{
+  	leaf stateless-firewall-service-enabled{
+  		type boolean;
+  		default false;
+  	}
+  	leaf udp-flow-table-id{
+ 		type uint8;
+ 		default 0;
+ 	}
+ 	leaf udp-flow-hard-timeout{
+ 		type uint16;
+ 		default 0;
+ 	}
+ 	leaf udp-flow-idle-timeout{
+ 		type uint16;
+ 		default 0;
+ 	}
+ 	leaf udp-flow-priority{
+ 		type uint16;
+ 		default 1;
+ 	}
+ 	leaf icmp-flow-table-id{
+ 		type uint8;
+ 		default 0;
+ 	}
+ 	leaf icmp-flow-hard-timeout{
+ 		type uint16;
+ 		default 0;
+ 	}
+ 	leaf icmp-flow-idle-timeout{
+ 		type uint16;
+ 		default 0;
+ 	}
+ 	leaf icmp-flow-priority{
+ 		type uint16;
+ 		default 1;
+ 	}
+ 	leaf gototable-flow-table-id{
+ 		type uint8;
+ 		default 0;
+ 	}
+ 	leaf gototable-flow-hard-timeout{
+ 		type uint16;
+ 		default 0;
+ 	}
+ 	leaf gototable-flow-idle-timeout{
+ 		type uint16;
+ 		default 0;
+ 	}
+ 	leaf gototable-flow-priority{
+ 		type uint16;
+ 		default 0;
+ 	}
+ 	
+  }
+  container reactive-flow-config{
+ 		leaf reactive-flow-table-id{
+ 			type uint8;
+ 			default 0;
+ 		}
+ 		leaf reactive-flow-hard-timeout{
+ 			type uint16;
+ 			default 60;
+ 		}
+ 		leaf reactive-flow-idle-timeout{
+ 			type uint16;
+ 			default 30;
+ 		}
+ 		leaf reactive-flow-priority{
+ 			type uint16;
+ 			default 10;
+ 		}
+ 	}
+
+ 
+}

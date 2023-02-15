@@ -1,0 +1,121 @@
+module firewall-rules-database{
+
+namespace "urn:opendaylight:firewall:rules-db";
+    prefix "fwr";
+    
+    import ietf-inet-types{
+	    prefix "inet"; 
+	    revision-date 2013-07-15;
+    }
+	import ietf-yang-types 
+	{
+		prefix yang; 
+		revision-date 2013-07-15;
+	
+	}
+	
+	 import flow-capable-transaction {
+	 	prefix tr; 
+	 	revision-date "2015-03-04";
+	 }
+	
+	
+    revision "2018-9-25" {
+        description "firewall rule based on tcp/ip  ";
+    }
+    
+	
+
+  
+ typedef action-type{
+ 	type enumeration{
+			enum "allow";
+			enum "drop" ;
+	}
+ }
+  
+
+  
+  grouping l3-rule{
+  		leaf rule-id{
+			type int32; 
+		}
+		leaf priority{
+			type int32;
+		}
+		container match-fields{
+			leaf ip-source{
+				type inet:ipv4-prefix;
+			}
+			leaf ip-destination{
+				type inet:ipv4-prefix;
+			}
+			leaf tcp-source-port{
+				type inet:port-number;
+			}
+			leaf tcp-destination-port{
+				type inet:port-number;
+			}
+		}
+		leaf action{
+			type action-type;
+		}
+  }
+  
+ grouping icmp-tuple{
+ 
+ 	 leaf rule-id{
+			type int32; 
+	 }
+	 leaf priority{
+			type int32;
+	 }
+	 container match-fields{
+	 	leaf ip-source{
+				type inet:ipv4-prefix;
+		}
+		leaf ip-destination{
+				type inet:ipv4-prefix;
+		}
+		leaf icmpv4-type{
+				type uint8;
+		}
+		leaf icmpv4-code{
+				type uint8;
+		}
+	 
+	 }
+ 	 leaf action{
+			type action-type;
+	}
+ 
+ } 
+  
+  
+  
+  container firewall-rule{
+  
+	  container firewall-tcp-rule{
+  		list tcp-rule{
+  			key rule-id;
+  			uses l3-rule;
+  	    }
+      }
+      container firewall-udp-rule{
+      	list udp-rule{
+      		key rule-id;
+      		uses l3-rule;
+      	}
+      }
+      container firewall-icmp-rule{
+      	list icmp-rule{
+      		key rule-id;
+      		uses icmp-tuple;
+      	}
+      }
+
+
+  }
+  
+ 
+}

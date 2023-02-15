@@ -1,0 +1,95 @@
+module tcp-packet{
+  yang-version 1;
+  namespace "urn:opendaylight:packet:ipv4:tcp";
+  prefix tcp;
+  
+  import base-packet { prefix bpacket; revision-date 2014-05-28; }
+  
+  revision 2018-09-25 {
+  description
+      "TCP packet key fields used to match statful firewall rules.";
+  }
+  
+  grouping tcp-packet-fields{
+  	leaf src-port{
+  		type uint16;
+  	}
+  	leaf dst-port{
+  		type uint16;
+  	}
+  	leaf seq-id{
+  		type int32;
+  	}
+  	leaf ack-num{
+  		type int32;
+  	}
+  	leaf head-length{
+  		type uint8;
+  	}
+  	leaf reserved{
+  		type uint8;
+  	}
+  	leaf urg-flag{
+  		type boolean;
+  	}
+  	leaf ack-flag{
+  		type boolean;
+  	}
+  	leaf psh-flag{
+  		type boolean;
+  	}
+  	leaf rst-flag{
+  		type boolean;
+  	}
+  	leaf syn-flag{
+  		type boolean;
+  	}
+  	leaf fin-flag{
+  		type boolean;
+  	}
+  	leaf receive-win{
+  		type uint16;
+  	}
+  	leaf checksum{
+  		type uint16;
+  	}
+  	leaf urgent-pointer{
+  		type uint16;
+  	}
+  	leaf tcp-options{
+  		type binary;
+  	}
+  	uses bpacket:packet-fields;
+  	
+  }
+  
+  notification tcp-packet-received {
+        uses bpacket:packet-chain-grp {
+            augment "packet-chain/packet" {
+                case tcp-packet {
+                    uses tcp-packet-fields;
+                }
+            }
+        }
+        uses bpacket:packet-payload;
+    }
+  
+ }
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

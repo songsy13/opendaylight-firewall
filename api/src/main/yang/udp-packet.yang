@@ -1,0 +1,60 @@
+module udp-packet{
+  yang-version 1;
+  namespace "urn:opendaylight:packet:ipv4:udp";
+  prefix udp;
+  
+  import base-packet { prefix bpacket; revision-date 2014-05-28; }
+  
+  revision 2018-09-25 {
+  description
+      "UDP packet key fields used to match stateless firewall rules.";
+  }
+  
+  grouping udp-packet-fields{
+  	leaf src-port{
+  		type uint16;
+  	}
+  	leaf dst-port{
+  		type uint16;
+  	}
+  	leaf head-length{
+  		type uint16;
+  	}
+  	leaf checksum{
+  		type uint16;
+  	}
+
+  	uses bpacket:packet-fields;
+  	
+  }
+  
+  notification udp-packet-received {
+        uses bpacket:packet-chain-grp {
+            augment "packet-chain/packet" {
+                case udp-packet {
+                    uses udp-packet-fields;
+                }
+            }
+        }
+        uses bpacket:packet-payload;
+    }
+  
+ }
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
